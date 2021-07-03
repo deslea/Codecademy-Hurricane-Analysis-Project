@@ -28,12 +28,10 @@ updated_damages = []
 def update_damage(lst):
   for ea in lst:
     if ea.find("M") != -1:
-      ea_float = float(ea.strip("M"))
-      ea_float = ea_float * conversion["M"]
+      ea_float = float(ea.strip("M")) * conversion["M"]
       updated_damages.append(ea_float)
     elif ea.find("B") != -1:
-      ea_float = float(ea.strip("B"))
-      ea_float = ea_float * conversion["B"]
+      ea_float = float(ea.strip("B")) * conversion["B"]
       updated_damages.append(ea_float)
     else:
       updated_damages.append(ea)
