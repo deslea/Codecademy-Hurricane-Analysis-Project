@@ -28,11 +28,9 @@ updated_damages = []
 def update_damage(lst):
   for ea in lst:
     if ea.find("M") != -1:
-      ea_float = float(ea.strip("M")) * conversion["M"]
-      updated_damages.append(ea_float)
+      updated_damages.append(float(ea.strip("M")) * conversion["M"])
     elif ea.find("B") != -1:
-      ea_float = float(ea.strip("B")) * conversion["B"]
-      updated_damages.append(ea_float)
+      updated_damages.append(float(ea.strip("B")) * conversion["B"])
     else:
       updated_damages.append(ea)
 
@@ -43,22 +41,18 @@ print("\n *** End Exercise 1 *** \n")
 # 2
 # Create a Table
 print("Exercise 2: Create Hurricanes Dictionary (3)\n")
-hurricanes = {}
+
 # Create and view the hurricanes dictionary
-def populate_hurricanes(lst1, lst2, lst3, lst4, lst5, lst6, lst7):
+hurricanes = {}
+
+def populate_hurricanes(lstName, lstMonth, lstYear, lstWind, lstArea, lstDamage, lstDeath):
   counter = 0
-  for ea in lst1:
-    hurricanes[ea] = {}
-    hurricanes[ea]["Name"] = lst1[counter]
-    hurricanes[ea]["Month"] = lst2[counter]
-    hurricanes[ea]["Year"] = lst3[counter]
-    hurricanes[ea]["Max Sustained Wind"] = lst4[counter]
-    hurricanes[ea]["Areas Affected"] = lst5[counter]
-    hurricanes[ea]["Damage"] = lst6[counter]
-    hurricanes[ea]["Death"] = lst7[counter]
+  for ea in lstName:
+    hurricanes[ea] = {"Name": lstName[counter], "Month": lstMonth[counter], "Year": lstYear[counter], "Max Sustained Wind": lstWind[counter], "Areas Affected": lstArea[counter], "Damage": lstDamage[counter], "Death": lstDeath[counter]}
     counter +=1
 
 populate_hurricanes(names, months, years, max_sustained_winds, areas_affected, updated_damages, deaths)
+
 print(hurricanes)
 print("\n *** End Exercise 2 *** \n")
 # 3
@@ -82,24 +76,24 @@ populate_hurr_year(hurricanes)
 print(hurricanes_by_year)
 
 print("\n *** End Exercise 3 *** \n")
+
 # 4
 # Counting Damaged Areas
-
 # create dictionary of areas to store the number of hurricanes involved in
 print("Exercise 4: Frequency of Damage (5)\n")
-areas_frequency = {}
-def populate_frequency(lst):
-  areas_raw = []
-  for ea in lst:
-      for itm in ea:
-        areas_raw.append(itm)
-  for entry in areas_raw:
-    if entry in areas_frequency:
-      areas_frequency[entry] += 1
-    else:
-      areas_frequency[entry] = 1
 
-populate_frequency(areas_affected)
+areas_frequency = {}
+
+def populate_freq(src, dest):
+  for ea in src:
+    val = src[ea]["Areas Affected"]
+    for item in val:
+      if item in dest:
+        dest[item] += 1
+      else:
+        dest[item] = 1
+
+populate_freq(hurricanes, areas_frequency)
 print(areas_frequency)
 
 print("\n *** End Exercise 4 *** \n")
@@ -114,7 +108,6 @@ def determine_most_affected(lst):
   max_area = "None"
   max_incidence = 0
   for ea in lst:
-    #print(lst[ea])
     if lst[ea] > max_incidence:
       max_incidence = lst[ea]
       max_area = ea
@@ -149,13 +142,7 @@ print("\n *** End Exercise 6 *** \n")
 # Rating Hurricanes by Mortality
 print("Exercise 7: Hurricane Mortality Ratings (8)\n")
 # categorize hurricanes in new dictionary with mortality severity as key
-hurricane_mortality = {}
-hurricane_mortality[0] = []
-hurricane_mortality[1] = []
-hurricane_mortality[2] = []
-hurricane_mortality[3] = []
-hurricane_mortality[4] = []
-hurricane_mortality[5] = []
+hurricane_mortality = {0: [], 1: [], 2: [], 3: [], 4: [], 5: []}
 
 def populate_mortality(lst):
     for ea in lst.items(): #hurricanes{}
@@ -213,10 +200,7 @@ damage_scale = {0: 0,
 
 # categorize hurricanes in new dictionary with damage severity as key
 
-hurricane_damage_scale = {}
-for k in damage_scale:
-    hurricane_damage_scale[k] = []
-hurricane_damage_scale[5] = []
+hurricane_damage_scale = {0: [], 1: [], 2: [], 3: [], 4: [], 5: []}
 
 def populate_damagescale(lst):
     for ea in lst.items(): #hurricanes{}
